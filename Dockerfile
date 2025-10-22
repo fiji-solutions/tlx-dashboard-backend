@@ -1,7 +1,7 @@
 # Multi-stage build for tlx-dashboard-backend Flask application
 # Using ARM64 architecture for cost efficiency on AWS Graviton2
 
-FROM --platform=linux/arm64 python:3.8.10-slim as builder
+FROM --platform=linux/arm64 python:3.9-slim as builder
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -26,7 +26,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Production stage
-FROM --platform=linux/arm64 python:3.8.10-slim
+FROM --platform=linux/arm64 python:3.9-slim
 
 # Set environment variables for production
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -44,7 +44,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # Copy Python dependencies from builder stage
-COPY --from=builder /usr/local/lib/python3.8/site-packages /usr/local/lib/python3.8/site-packages
+COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
 COPY --from=builder /usr/local/bin /usr/local/bin
 
 # Copy application code
