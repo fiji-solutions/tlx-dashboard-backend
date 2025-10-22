@@ -1,0 +1,105 @@
+# IDE and Editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Environment variables and configuration
+.env
+.env.local
+.env.development
+.env.production
+.env.staging
+config.ini
+secrets.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+.venv/
+ENV/
+env/
+.env/
+
+# Database backups and sensitive data
+db_backup/
+*.sql.bak
+*.dump
+backup/
+backups/
+
+# Logs
+*.log
+logs/
+log/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Security and credentials
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+credentials.json
+service-account.json
+aws-credentials
+.aws/
+
+# Flask specific
+instance/
+.webassets-cache
+
+# Testing
+.coverage
+htmlcov/
+.tox/
+.nox/
+.coverage.*
+.pytest_cache/
+cover/
+
+# Static files (if auto-generated)
+static/uploads/
+static/generated/
+
+# Documentation builds
+_build/
+site/
