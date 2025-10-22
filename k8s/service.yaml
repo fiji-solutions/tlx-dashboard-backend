@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tlx-dashboard-backend-service
+  namespace: ${NAMESPACE}
+  labels:
+    app: tlx-dashboard-backend
+    environment: ${ENVIRONMENT}
+spec:
+  selector:
+    app: tlx-dashboard-backend
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 8000
+  type: ClusterIP

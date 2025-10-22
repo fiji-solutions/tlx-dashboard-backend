@@ -1,0 +1,160 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tlx-dashboard-backend
+  namespace: ${NAMESPACE}
+  labels:
+    app: tlx-dashboard-backend
+    environment: ${ENVIRONMENT}
+spec:
+  replicas: ${REPLICAS}
+  selector:
+    matchLabels:
+      app: tlx-dashboard-backend
+  template:
+    metadata:
+      labels:
+        app: tlx-dashboard-backend
+        environment: ${ENVIRONMENT}
+    spec:
+      containers:
+      - name: tlx-dashboard-backend
+        image: ${IMAGE}
+        ports:
+        - containerPort: 8000
+          protocol: TCP
+        env:
+        - name: FLASK_ENV
+          value: ${FLASK_ENV}
+        - name: FLASK_DEBUG
+          value: "${FLASK_DEBUG}"
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: tlx-dashboard-secrets
+              key: db-host
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: tlx-dashboard-secrets
+              key: db-name
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: tlx-dashboard-secrets
+              key: db-user
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: tlx-dashboard-secrets
+              key: db-password
+        - name: DB_PORT
+          valueFrom:
+            secretKeyRef:
+              name: tlx-dashboard-secrets
+              key: db-port
+        - name: SECRET_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: tlx-dashboard-secrets
+              key: secret-password
+        - name: SECRET_PASSWORD2
+          valueFrom:
+            secretKeyRef:
+              name: tlx-dashboard-secrets
+              key: secret-password2
+        - name: COGNITO_REGION
+          valueFrom:
+            secretKeyRef:
+              name: tlx-dashboard-secrets
+              key: cognito-region
+        - name: COGNITO_USERPOOL_ID
+          valueFrom:
+            secretKeyRef:
+              name: tlx-dashboard-secrets
+              key: cognito-userpool-id
+        - name: COGNITO_APP_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: tlx-dashboard-secrets
+              key: cognito-app-client-id
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "200m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 2
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: false
+      nodeSelector:
+        kubernetes.io/arch: arm64
+        node.kubernetes.io/instance-type: t4g.medium
+      securityContext:
+        fsGroup: 1000
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tlx-dashboard-secrets
+  namespace: ${NAMESPACE}
+type: Opaque
+stringData:
+  db-host: "${DB_HOST}"
+  db-name: "${DB_NAME}"
+  db-user: "${DB_USER}"
+  db-password: "${DB_PASSWORD}"
+  db-port: "${DB_PORT}"
+  secret-password: "${SECRET_PASSWORD}"
+  secret-password2: "${SECRET_PASSWORD2}"
+  cognito-region: "${COGNITO_REGION}"
+  cognito-userpool-id: "${COGNITO_USERPOOL_ID}"
+  cognito-app-client-id: "${COGNITO_APP_CLIENT_ID}"
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: tlx-dashboard-backend-hpa
+  namespace: ${NAMESPACE}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: tlx-dashboard-backend
+  minReplicas: ${MIN_REPLICAS}
+  maxReplicas: ${MAX_REPLICAS}
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80

@@ -1,5 +1,5 @@
 -- PostgreSQL schema converted from MySQL
--- Database: catalytics
+-- Database: tlx
 -- Conversion notes:
 -- - AUTO_INCREMENT -> SERIAL
 -- - varchar(255) -> VARCHAR(255) 
