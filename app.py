@@ -24,7 +24,6 @@ from trading_view_experiments import fetch_records_from_experiments, add_record_
 
 from trw_guy_new_entry import add_data, get_data, delete_data_by_date
 from trw_guy import trw_guy_def
-import subprocess
 
 app = Flask(__name__)
 
@@ -380,44 +379,6 @@ def trading_view_experiments_delete():
     password = request.args.get('password')
     delete_record_from_experiments(id, password)
     return jsonify({})
-
-# Database initialization endpoint (temporary - for one-time use)
-@app.route('/admin/init-db', methods=['POST'])
-def init_database():
-    """Manually trigger database initialization - TEMPORARY ENDPOINT"""
-    try:
-        import subprocess
-        result = subprocess.run(
-            ['python', '/app/init_db.py'], 
-            capture_output=True, 
-            text=True,
-            timeout=600  # 10 minute timeout
-        )
-        
-        if result.returncode == 0:
-            return jsonify({
-                'status': 'success',
-                'message': 'Database initialization completed',
-                'output': result.stdout
-            })
-        else:
-            return jsonify({
-                'status': 'error', 
-                'message': 'Database initialization failed',
-                'error': result.stderr,
-                'output': result.stdout
-            }), 500
-            
-    except subprocess.TimeoutExpired:
-        return jsonify({
-            'status': 'error',
-            'message': 'Database initialization timed out'
-        }), 500
-    except Exception as e:
-        return jsonify({
-            'status': 'error',
-            'message': f'Failed to run database initialization: {str(e)}'
-        }), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000)
