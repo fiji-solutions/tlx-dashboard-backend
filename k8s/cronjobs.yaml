@@ -44,6 +44,36 @@ spec:
                 secretKeyRef:
                   name: tlx-dashboard-secrets
                   key: db-port
+            - name: COINGECKO_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: coingecko-api-key
+            - name: SMTP_SENDER_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: smtp-sender-email
+            - name: SMTP_RECEIVER_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: smtp-receiver-email
+            - name: SMTP_CC_EMAILS
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: smtp-cc-emails
+            - name: SMTP_USER
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: smtp-user
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: smtp-password
             resources:
               requests:
                 memory: "128Mi"
@@ -102,6 +132,11 @@ spec:
                 secretKeyRef:
                   name: tlx-dashboard-secrets
                   key: db-port
+            - name: COINGECKO_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: coingecko-api-key
             resources:
               requests:
                 memory: "256Mi"
@@ -160,6 +195,11 @@ spec:
                 secretKeyRef:
                   name: tlx-dashboard-secrets
                   key: db-port
+            - name: COINGECKO_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: coingecko-api-key
             resources:
               requests:
                 memory: "128Mi"
@@ -218,6 +258,11 @@ spec:
                 secretKeyRef:
                   name: tlx-dashboard-secrets
                   key: db-port
+            - name: COINGECKO_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: coingecko-api-key
             resources:
               requests:
                 memory: "128Mi"
@@ -276,6 +321,11 @@ spec:
                 secretKeyRef:
                   name: tlx-dashboard-secrets
                   key: db-port
+            - name: COINGECKO_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: coingecko-api-key
             resources:
               requests:
                 memory: "128Mi"

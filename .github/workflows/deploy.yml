@@ -116,6 +116,12 @@ jobs:
         export COGNITO_USERPOOL_ID="${{ secrets.STAGING_COGNITO_USERPOOL_ID }}"
         export COGNITO_APP_CLIENT_ID="${{ secrets.STAGING_COGNITO_APP_CLIENT_ID }}"
         export CERTIFICATE_ARN="${{ secrets.STAGING_CERTIFICATE_ARN }}"
+        export COINGECKO_API_KEY="${{ secrets.STAGING_COINGECKO_API_KEY }}"
+        export SMTP_SENDER_EMAIL="${{ secrets.STAGING_SMTP_SENDER_EMAIL }}"
+        export SMTP_RECEIVER_EMAIL="${{ secrets.STAGING_SMTP_RECEIVER_EMAIL }}"
+        export SMTP_CC_EMAILS="${{ secrets.STAGING_SMTP_CC_EMAILS }}"
+        export SMTP_USER="${{ secrets.STAGING_SMTP_USER }}"
+        export SMTP_PASSWORD="${{ secrets.STAGING_SMTP_PASSWORD }}"
         
         # Substitute variables in manifest files
         envsubst < k8s/deployment.yaml > k8s/deployment-applied.yaml
@@ -203,6 +209,12 @@ jobs:
         export COGNITO_USERPOOL_ID="${{ secrets.PROD_COGNITO_USERPOOL_ID }}"
         export COGNITO_APP_CLIENT_ID="${{ secrets.PROD_COGNITO_APP_CLIENT_ID }}"
         export CERTIFICATE_ARN="${{ secrets.PROD_CERTIFICATE_ARN }}"
+        export COINGECKO_API_KEY="${{ secrets.PROD_COINGECKO_API_KEY }}"
+        export SMTP_SENDER_EMAIL="${{ secrets.PROD_SMTP_SENDER_EMAIL }}"
+        export SMTP_RECEIVER_EMAIL="${{ secrets.PROD_SMTP_RECEIVER_EMAIL }}"
+        export SMTP_CC_EMAILS="${{ secrets.PROD_SMTP_CC_EMAILS }}"
+        export SMTP_USER="${{ secrets.PROD_SMTP_USER }}"
+        export SMTP_PASSWORD="${{ secrets.PROD_SMTP_PASSWORD }}"
         
         # Substitute variables in manifest files
         envsubst < k8s/deployment.yaml > k8s/deployment-applied.yaml

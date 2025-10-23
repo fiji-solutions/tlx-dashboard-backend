@@ -10,7 +10,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from database import get_db_connection, get_db_cursor
 
 def fetch_all_coins_in_category(category_id):
-    API_KEY = "CG-UjVuSo7WsuhKr8CK9k1LoM8c"
+    API_KEY = os.getenv('COINGECKO_API_KEY', '')
     headers = {"x-cg-demo-api-key": API_KEY}
 
     coins_url = "https://api.coingecko.com/api/v3/coins/markets"

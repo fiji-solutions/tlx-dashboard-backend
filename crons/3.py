@@ -52,7 +52,7 @@ url = f"https://api.coingecko.com/api/v3/simple/price?ids={ids[:-1]}&vs_currenci
 
 headers = {
         "accept": "application/json",
-        "x-cg-demo-api-key": "CG-UjVuSo7WsuhKr8CK9k1LoM8c"
+        "x-cg-demo-api-key": os.getenv('COINGECKO_API_KEY', '')
     }
 
 response = requests.get(url, headers=headers)

@@ -14,10 +14,10 @@ from database import get_db_connection, get_db_cursor
 
 # Function to send email notification
 def send_email_notification(record):
-    sender_email = "charismoutafidis@gmail.com"
-    receiver_email = "charismoutafidis@gmail.com"
-    cc_emails = ["kleung963@gmail.com", "pkoszycki444@gmail.com", "tszyeungcheung2007@gmail.com", "tonyteglas@yahoo.com"]
-    cc_emails = ["kleung963@gmail.com"]
+    sender_email = os.getenv('SMTP_SENDER_EMAIL', 'charismoutafidis@gmail.com')
+    receiver_email = os.getenv('SMTP_RECEIVER_EMAIL', 'charismoutafidis@gmail.com')
+    cc_emails_str = os.getenv('SMTP_CC_EMAILS', 'kleung963@gmail.com')
+    cc_emails = cc_emails_str.split(',') if cc_emails_str else []
     subject = "New Record Saved to Database"
 
     # Create the email content
@@ -32,8 +32,8 @@ def send_email_notification(record):
     # SMTP server configuration for Gmail
     smtp_server = "smtp.gmail.com"
     smtp_port = 465
-    smtp_user = "charismoutafidis@gmail.com"
-    smtp_password = "nykh sgvi nmon gbyx"  # Use the App Password
+    smtp_user = os.getenv('SMTP_USER', 'charismoutafidis@gmail.com')
+    smtp_password = os.getenv('SMTP_PASSWORD', '')
 
     # Send the email
     try:
