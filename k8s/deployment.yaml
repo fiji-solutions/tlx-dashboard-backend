@@ -106,9 +106,6 @@ spec:
           runAsUser: 1000
           allowPrivilegeEscalation: false
           readOnlyRootFilesystem: false
-      nodeSelector:
-        kubernetes.io/arch: arm64
-        node.kubernetes.io/instance-type: t4g.medium
       securityContext:
         fsGroup: 1000
       restartPolicy: Always
