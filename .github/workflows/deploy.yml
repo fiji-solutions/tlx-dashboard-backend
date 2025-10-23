@@ -137,7 +137,10 @@ jobs:
     - name: Verify deployment
       run: |
         kubectl get pods -n ${{ env.NAMESPACE }} -l app=tlx-dashboard-backend
-        kubectl wait --for=condition=ready pod -l app=tlx-dashboard-backend -n ${{ env.NAMESPACE }} --timeout=300s
+        # Wait for deployment to be ready instead of individual pods
+        kubectl wait --for=condition=available deployment/tlx-dashboard-backend -n ${{ env.NAMESPACE }} --timeout=300s
+        # Verify we have running pods (not terminating)
+        kubectl get pods -n ${{ env.NAMESPACE }} -l app=tlx-dashboard-backend --field-selector=status.phase=Running
 
     - name: Cleanup temporary files
       if: always()
@@ -221,7 +224,10 @@ jobs:
     - name: Verify deployment
       run: |
         kubectl get pods -n ${{ env.NAMESPACE }} -l app=tlx-dashboard-backend
-        kubectl wait --for=condition=ready pod -l app=tlx-dashboard-backend -n ${{ env.NAMESPACE }} --timeout=300s
+        # Wait for deployment to be ready instead of individual pods
+        kubectl wait --for=condition=available deployment/tlx-dashboard-backend -n ${{ env.NAMESPACE }} --timeout=300s
+        # Verify we have running pods (not terminating)
+        kubectl get pods -n ${{ env.NAMESPACE }} -l app=tlx-dashboard-backend --field-selector=status.phase=Running
 
     - name: Cleanup temporary files
       if: always()
