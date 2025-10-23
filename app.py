@@ -26,7 +26,13 @@ from trw_guy_new_entry import add_data, get_data, delete_data_by_date
 from trw_guy import trw_guy_def
 
 app = Flask(__name__)
-CORS(app)
+
+# Configure CORS to allow all origins
+CORS(app, 
+     origins="*",
+     allow_headers=["Content-Type", "Authorization", "X-Requested-With", "Accept", "Origin"],
+     methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"]
+)
 
 # Cognito specific configurations from environment variables
 COGNITO_REGION = os.getenv('COGNITO_REGION', 'us-east-1')

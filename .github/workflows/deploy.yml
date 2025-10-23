@@ -74,7 +74,7 @@ jobs:
       REPLICAS: 1
       MIN_REPLICAS: 1
       MAX_REPLICAS: 3
-      ALB_GROUP_NAME: fiji-staging-alb
+      ALB_GROUP_NAME: staging-shared-alb
       FLASK_ENV: development
       FLASK_DEBUG: "True"
       IMAGE: ${{ needs.build.outputs.image-uri }}
@@ -156,7 +156,7 @@ jobs:
       REPLICAS: 2
       MIN_REPLICAS: 2
       MAX_REPLICAS: 10
-      ALB_GROUP_NAME: fiji-prod-alb
+      ALB_GROUP_NAME: production-shared-alb
       FLASK_ENV: production
       FLASK_DEBUG: "False"
       IMAGE: ${{ needs.build.outputs.image-uri }}
