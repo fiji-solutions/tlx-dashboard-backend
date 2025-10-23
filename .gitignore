@@ -46,7 +46,6 @@ env/
 .env/
 
 # Database backups and sensitive data
-db_backup/
 *.sql.bak
 *.dump
 backup/

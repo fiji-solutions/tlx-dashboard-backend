@@ -121,12 +121,14 @@ jobs:
         envsubst < k8s/deployment.yaml > k8s/deployment-applied.yaml
         envsubst < k8s/service.yaml > k8s/service-applied.yaml
         envsubst < k8s/ingress.yaml > k8s/ingress-applied.yaml
+        envsubst < k8s/cronjobs.yaml > k8s/cronjobs-applied.yaml
 
     - name: Deploy to Kubernetes
       run: |
         kubectl apply -f k8s/deployment-applied.yaml
         kubectl apply -f k8s/service-applied.yaml
         kubectl apply -f k8s/ingress-applied.yaml
+        kubectl apply -f k8s/cronjobs-applied.yaml
 
     - name: Wait for rollout to complete
       run: |
@@ -203,12 +205,14 @@ jobs:
         envsubst < k8s/deployment.yaml > k8s/deployment-applied.yaml
         envsubst < k8s/service.yaml > k8s/service-applied.yaml
         envsubst < k8s/ingress.yaml > k8s/ingress-applied.yaml
+        envsubst < k8s/cronjobs.yaml > k8s/cronjobs-applied.yaml
 
     - name: Deploy to Kubernetes
       run: |
         kubectl apply -f k8s/deployment-applied.yaml
         kubectl apply -f k8s/service-applied.yaml
         kubectl apply -f k8s/ingress-applied.yaml
+        kubectl apply -f k8s/cronjobs-applied.yaml
 
     - name: Wait for rollout to complete
       run: |

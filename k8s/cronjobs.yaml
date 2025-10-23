@@ -1,0 +1,288 @@
+# CronJob for TGA Liquidity data collection (runs every hour)
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: tga-liquidity-cron
+  namespace: ${NAMESPACE}
+  labels:
+    app: tlx-dashboard-backend
+    component: cronjob
+    environment: ${ENVIRONMENT}
+spec:
+  schedule: "0 * * * *"  # Every hour
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: tga-liquidity-cron
+            image: ${IMAGE}
+            command: ["python", "/app/crons/cron_tga.py"]
+            env:
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: db-host
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: db-name
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: db-user
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: db-password
+            - name: DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: db-port
+            resources:
+              requests:
+                memory: "128Mi"
+                cpu: "100m"
+              limits:
+                memory: "256Mi"
+                cpu: "200m"
+          restartPolicy: OnFailure
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+
+---
+# CronJob for CoinGecko data collection (runs daily at 22:00)
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: coingecko-data-cron
+  namespace: ${NAMESPACE}
+  labels:
+    app: tlx-dashboard-backend
+    component: cronjob
+    environment: ${ENVIRONMENT}
+spec:
+  schedule: "0 22 * * *"  # Daily at 22:00 UTC
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: coingecko-data-cron
+            image: ${IMAGE}
+            command: ["python", "/app/crons/cron_2_0.py"]
+            env:
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: db-host
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: db-name
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: db-user
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: db-password
+            - name: DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: db-port
+            resources:
+              requests:
+                memory: "256Mi"
+                cpu: "200m"
+              limits:
+                memory: "512Mi"
+                cpu: "400m"
+          restartPolicy: OnFailure
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+
+---
+# CronJob for LST price data (runs daily at 02:00)
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: lst-price-cron
+  namespace: ${NAMESPACE}
+  labels:
+    app: tlx-dashboard-backend
+    component: cronjob
+    environment: ${ENVIRONMENT}
+spec:
+  schedule: "0 2 * * *"  # Daily at 02:00 UTC
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: lst-price-cron
+            image: ${IMAGE}
+            command: ["python", "/app/crons/3.py"]
+            env:
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: db-host
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: db-name
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: db-user
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: db-password
+            - name: DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: db-port
+            resources:
+              requests:
+                memory: "128Mi"
+                cpu: "100m"
+              limits:
+                memory: "256Mi"
+                cpu: "200m"
+          restartPolicy: OnFailure
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+
+---
+# CronJob for Jupiter price data (runs daily at 02:00)
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: jupiter-price-cron
+  namespace: ${NAMESPACE}
+  labels:
+    app: tlx-dashboard-backend
+    component: cronjob
+    environment: ${ENVIRONMENT}
+spec:
+  schedule: "0 2 * * *"  # Daily at 02:00 UTC
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: jupiter-price-cron
+            image: ${IMAGE}
+            command: ["python", "/app/crons/4.py"]
+            env:
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: db-host
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: db-name
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: db-user
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: db-password
+            - name: DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: db-port
+            resources:
+              requests:
+                memory: "128Mi"
+                cpu: "100m"
+              limits:
+                memory: "256Mi"
+                cpu: "200m"
+          restartPolicy: OnFailure
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+
+---
+# CronJob for LST tokens data (runs daily at 02:00)
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: lst-tokens-cron
+  namespace: ${NAMESPACE}
+  labels:
+    app: tlx-dashboard-backend
+    component: cronjob
+    environment: ${ENVIRONMENT}
+spec:
+  schedule: "0 2 * * *"  # Daily at 02:00 UTC
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: lst-tokens-cron
+            image: ${IMAGE}
+            command: ["python", "/app/crons/5.py"]
+            env:
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: db-host
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: db-name
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: db-user
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: db-password
+            - name: DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: tlx-dashboard-secrets
+                  key: db-port
+            resources:
+              requests:
+                memory: "128Mi"
+                cpu: "100m"
+              limits:
+                memory: "256Mi"
+                cpu: "200m"
+          restartPolicy: OnFailure
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
