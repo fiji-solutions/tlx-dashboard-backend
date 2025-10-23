@@ -54,26 +54,31 @@ spec:
                 secretKeyRef:
                   name: tlx-dashboard-secrets
                   key: smtp-sender-email
+                  optional: true
             - name: SMTP_RECEIVER_EMAIL
               valueFrom:
                 secretKeyRef:
                   name: tlx-dashboard-secrets
                   key: smtp-receiver-email
+                  optional: true
             - name: SMTP_CC_EMAILS
               valueFrom:
                 secretKeyRef:
                   name: tlx-dashboard-secrets
                   key: smtp-cc-emails
+                  optional: true
             - name: SMTP_USER
               valueFrom:
                 secretKeyRef:
                   name: tlx-dashboard-secrets
                   key: smtp-user
+                  optional: true
             - name: SMTP_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: tlx-dashboard-secrets
                   key: smtp-password
+                  optional: true
             resources:
               requests:
                 memory: "128Mi"
