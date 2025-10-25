@@ -139,6 +139,11 @@ stringData:
   cognito-userpool-id: "${COGNITO_USERPOOL_ID}"
   cognito-app-client-id: "${COGNITO_APP_CLIENT_ID}"
   coingecko-api-key: "${COINGECKO_API_KEY}"
+  smtp-sender-email: "${SMTP_SENDER_EMAIL}"
+  smtp-receiver-email: "${SMTP_RECEIVER_EMAIL}"
+  smtp-cc-emails: "${SMTP_CC_EMAILS}"
+  smtp-user: "${SMTP_USER}"
+  smtp-password: "${SMTP_PASSWORD}"
 
 ---
 apiVersion: autoscaling/v2
