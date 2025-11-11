@@ -22,44 +22,44 @@ spec:
         app: tlx-dashboard-backend
         environment: ${ENVIRONMENT}
     spec:
-      # Init container for one-time database setup
-      initContainers:
-      - name: db-init
-        image: ${IMAGE}
-        command: ["python", "/app/init_db.py"]
-        env:
-        - name: DB_HOST
-          valueFrom:
-            secretKeyRef:
-              name: tlx-dashboard-secrets
-              key: db-host
-        - name: DB_NAME
-          valueFrom:
-            secretKeyRef:
-              name: tlx-dashboard-secrets
-              key: db-name
-        - name: DB_USER
-          valueFrom:
-            secretKeyRef:
-              name: tlx-dashboard-secrets
-              key: db-user
-        - name: DB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: tlx-dashboard-secrets
-              key: db-password
-        - name: DB_PORT
-          valueFrom:
-            secretKeyRef:
-              name: tlx-dashboard-secrets
-              key: db-port
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "200m"
-          limits:
-            memory: "512Mi"
-            cpu: "500m"
+#      # Init container for one-time database setup
+#      initContainers:
+#      - name: db-init
+#        image: ${IMAGE}
+#        command: ["python", "/app/init_db.py"]
+#        env:
+#        - name: DB_HOST
+#          valueFrom:
+#            secretKeyRef:
+#              name: tlx-dashboard-secrets
+#              key: db-host
+#        - name: DB_NAME
+#          valueFrom:
+#            secretKeyRef:
+#              name: tlx-dashboard-secrets
+#              key: db-name
+#        - name: DB_USER
+#          valueFrom:
+#            secretKeyRef:
+#              name: tlx-dashboard-secrets
+#              key: db-user
+#        - name: DB_PASSWORD
+#          valueFrom:
+#            secretKeyRef:
+#              name: tlx-dashboard-secrets
+#              key: db-password
+#        - name: DB_PORT
+#          valueFrom:
+#            secretKeyRef:
+#              name: tlx-dashboard-secrets
+#              key: db-port
+#        resources:
+#          requests:
+#            memory: "256Mi"
+#            cpu: "200m"
+#          limits:
+#            memory: "512Mi"
+#            cpu: "500m"
       containers:
       - name: tlx-dashboard-backend
         image: ${IMAGE}
