@@ -164,8 +164,8 @@ jobs:
       NAMESPACE: tlx-dashboard-production
       CLUSTER_NAME: fiji-prod-cluster
       DOMAIN: api.finance.fijisolutions.net
-      REPLICAS: 2
-      MIN_REPLICAS: 2
+      REPLICAS: 1
+      MIN_REPLICAS: 1
       MAX_REPLICAS: 10
       ALB_GROUP_NAME: production-shared-alb
       FLASK_ENV: production
